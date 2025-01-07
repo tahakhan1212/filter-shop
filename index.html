@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shoe Store</title>
+    <style>
+        :root {
+            --white: #f5f5f5;
+            --light: #f0d9db;
+            --tan: #c3a1a0;
+            --rose: #ba7e7e;
+            --pink: #d9aab7;
+            --dark: #4e4e4e;
+        }
+
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap");
+   
+    * {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  text-transform: capitalize;
+  transition: all .2s linear;
+  transition: all .2s linear;
+}
+
+    nav {
+      width: 100%;
+      margin-bottom: 1rem;
+      background: rgba(255, 255, 255, 0.5);
+      box-shadow: 0 1px 12px rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(12px);
+      /* background-color: rgba(255, 255, 255, 0.754); */
+      padding: 15px 20px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      position: relative;
+      z-index: 10000;
+    }
+
+    .logo {
+      font-size: 2.5rem;
+      color: var(--rose);
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .navbar-menu {
+      display: flex;
+      align-items: center;
+      margin-left: auto;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: bold;
+      transition: color 0.3s, text-shadow 0.3s;
+      font-size: 1.5rem;
+    }
+
+    nav a:hover {
+      color: black;
+      text-shadow: 0 0 2px white;
+    }
+
+    nav li {
+      padding-right: 20px;
+      margin-right: 10px;
+    }
+
+    .searchbar-container {
+      display: flex;
+      justify-content: right;
+      flex-grow: 1;
+    }
+
+    .searchbar {
+      display: flex;
+      height: 40px;
+      width: 300px;
+      padding: 5px;
+      border-radius: 20px;
+      background-color: #ffffff;
+      border: 2px dotted black;
+    }
+
+    .searchbar input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 15px;
+      border: none;
+      outline: none;
+      font-size: 1.2rem;
+      color: rgb(4, 4, 4);
+      background-color: #ffffff;
+    }
+
+    @media (max-width: 650px){
+      .logo{
+        display: none;
+      }
+      .searchbar{
+        width: 100%;
+      }
+    }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: var(--light);
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1500px;
+        }
+
+        .container {
+            background: var(--white);
+            box-shadow: 0 10px 30px rgba(186, 126, 126, 0.2);
+            border-radius: 15px;
+            padding: 1.5em;
+            overflow: hidden;
+        }
+
+        .images-and-sizes {
+            margin-bottom: 1em;
+        }
+
+        .images-and-sizes img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            height: 300px;
+            z-index: 5;
+            transition: .2s ease-in-out;
+        }
+
+        img:hover {
+            scale: 1.05;
+        }
+
+        .slideshow-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 0.5em;
+            margin: 1em 0;
+        }
+
+        .slideshow-buttons span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--light);
+            cursor: pointer;
+        }
+
+        .slideshow-buttons .focus {
+            background: var(--rose);
+        }
+
+        .pick {
+            text-transform: uppercase;
+            font-size: 0.8em;
+            color: var(--dark);
+            margin: 1em 0 0.5em;
+        }
+
+        .sizes {
+            display: flex;
+            gap: 0.5em;
+        }
+
+        .sizes span {
+            border: 1px solid var(--light);
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9em;
+            cursor: pointer;
+        }
+
+        .sizes span:hover {
+            background: var(--rose);
+            color: var(--white);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .sizes .focus {
+            background: var(--rose);
+            color: var(--white);
+        }
+
+        .product p {
+            margin-top: 1rem;
+            text-transform: uppercase;
+            font-size: 0.8em;
+            color: var(--dark);
+        }
+
+        .product h1 {
+            font-size: 1.5em;
+            color: var(--dark);
+            margin: 0.5em 0;
+        }
+
+        .product h2 {
+            font-size: 1.2em;
+            color: var(--tan);
+        }
+
+        .description {
+            margin: 1em 0;
+            font-size: 0.9em;
+            line-height: 1.5em;
+            color: var(--dark);
+            text-align: justify;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 1em;
+        }
+
+        .buttons button {
+            padding: 0.6em 1em;
+            border: none;
+            border-radius: 5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            color: var(--white);
+            background: var(--pink);
+            flex: 1;
+        }
+
+        .buttons button:hover {
+            background: var(--rose);
+            transition: all 0.3s ease-in-out;
+        }
+
+        @media (max-width: 760px) {
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .img-card {
+            position: relative;
+            transition: all .9s;
+            transform-style: preserve-3d;
+        }
+
+        .front,
+        .back {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.4rem;
+            color: rgba(0, 0, 0, 0.803);
+            border-radius: 10px;
+            position: absolute;
+        }
+
+        .front {
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            object-fit: cover;
+            z-index: 2;
+            backface-visibility: hidden;
+        }
+        
+        .pic1{
+            background-image: url(image2/pic-1.webp);
+        }
+
+        .pic2{
+            background-image: url(image2/pic-2.webp);
+        }
+
+        .pic3{
+            background-image: url(image2/pic-3.webp);
+        }
+
+        .pic4{
+            background-image:  url(image2/pic-4.webp);
+        }
+
+        .pic5{
+            background-image: url(image2/pic-5.jpg);
+        }
+
+        .pic6{
+            background-image: url(image2/pic-6.webp);
+        }
+
+        .pic7{
+            background-image: url(image2/pic-7.jpg);
+        }
+
+        .pic8{
+            background-image: url(image2/pic-8.webp);
+        }
+
+        .pic9{
+            background-image: url(image2/pic-9.webp);
+        }
+
+        .pic10{
+            background-image: url(image2/pic-10.webp);
+        }
+
+        .pic11{
+            background-image: url(image2/pic-11.webp);
+        }
+
+        .pic12{
+            background-image: url(image2/pic-12.jpg);
+        }
+       
+        .pic13{
+            background-image: url(image2/pic-13.webp);
+        }
+
+        .pic14{
+            background-image: url(image2/pic-14.webp);
+        }
+
+        .pic15{
+            background-image: url(image2/pic-15.webp);
+        }
+
+        .pic16{
+            background-image: url(image2/pic-16.webp);
+        }
+
+        .pic17{
+            background-image: url(image2/pic-17.webp);
+        }
+
+        .pic18{
+            background-image: url(image2/pic-18.webp);
+        }
+
+        .pic19{
+            background-image: url(image2/pic-19.webp);
+        }
+
+        .pic20{
+            background-image: url(image2/pic-20.jpg);
+        }
+
+        .back {
+            background-color: rgba(245, 245, 245, 0.318);
+            backdrop-filter: blur(4px);
+            z-index: 1;
+            transform: rotateY(180deg);
+        }
+
+        .back p {
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            align-self:last baseline ;
+            padding-bottom: 1rem;
+            font-weight: 100;
+        }
+
+        .img-container:hover .img-card {
+            transform: rotateY(180deg);
+        }
+
+        .img-container {
+            perspective: 1000px;
+        }
+
+        .show{
+            display: block;
+        }
+
+        .hide{
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- nav start -->
+
+    <nav>
+        <a href="#" class="logo">Shoes Hub</a>
+        <!-- Searchbar Container for centering -->
+        <div class="searchbar-container">
+          <div class="searchbar">
+            <input type="text" placeholder="Search...">
+          </div>
+        </div>
+      </nav>
+
+    <!-- nav end -->
+
+    <div class="cards">
+        <div class="container">
+            <div class="img-container">
+                <div class="img-card">
+                    <div class="front pic1"></div>
+                    <div class="back">
+                        <p>High-quality materials ensure maximum comfort. Perfect for u se and active lifestyles.</p>
+                    </div>
+                    <div class="images-and-sizes">
+                        <img src="image2/pic-1.webp" alt="Shoe Image">
+                    </div>
+                </div>
+            </div>
+            <div class="slideshow-buttons">
+                <span></span>
+                <span class="focus"></span>
+                <span></span>
+                <span></span>
+            </div>
+            <p class="pick">Choose Size</p>
+            <div class="sizes">
+                <span>5</span>
+                <span>6</span>
+                <span>7</span>
+                <span>8</span>
+                <span>9</span>
+                <span>10</span>
+                <span>11</span>
+                <span>12</span>
+            </div>
+            <div class="product">
+                <p>Men's Classic Sneakers</p>
+                <h1>Adidas Ultraboost 22</h1>
+                <h2>$180</h2>
+                <p class="description">
+                    The Adidas Ultraboost 22 offers superior cushioning and style, perfect for both running and casual wear.
+                </p>
+                <div class="buttons">
+                    <button class="add">Add To Cart</button>
+                    <button class="like">
+                        <span>&hearts; Like</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    
+        <div class="container">
+            <div class="img-container">
+                <div class="img-card">
+                    <div class="front pic2"></div>
+                    <div class="back">
+                        <p>Lightweight and breathable design for added comfort during long hours.</p>
+                    </div>
+                    <div class="images-and-sizes">
+                        <img src="image2/pic-2.webp" alt="Shoe Image">
+                    </div>
+                </div>
+            </div>
+            <div class="slideshow-buttons">
+                <span></span>
+                <span class="focus"></span>
+                <span></span>
+                <span></span>
+            </div>
+            <p class="pick">Choose Size</p>
+            <div class="sizes">
+                <span>5</span>
+                <span>6</span>
+                <span>7</span>
+                <span>8</span>
+                <span>9</span>
+                <span>10</span>
+                <span>11</span>
+                <span>12</span>
+            </div>
+            <div class="product">
+                <p>Women's Fashion Sneakers</p>
+                <h1>Puma RS-X</h1>
+                <h2>$130</h2>
+                <p class="description">
+                    The Puma RS-X redefines street style with bold colors and a trendy silhouette, ideal for fashion-forward individuals.
+                </p>
+                <div class="buttons">
+                    <button class="add">Add To Cart</button>
+                    <button class="like">
+                        <span>&hearts; Like</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    
+        <div class="container">
+            <div class="img-container">
+                <div class="img-card">
+                    <div class="front pic3"></div>
+                    <div class="back">
+                        <p>Designed for superior performance and comfort.</p>
+                    </div>
+                    <div class="images-and-sizes">
+                        <img src="image2/pic-3.webp" alt="Shoe Image">
+                    </div>
+                </div>
+            </div>
+            <div class="slideshow-buttons">
+                <span></span>
+                <span class="focus"></span>
+                <span></span>
+                <span></span>
+            </div>
+            <p class="pick">Choose Size</p>
+            <div class="sizes">
+                <span>5</span>
+                <span>6</span>
+                <span>7</span>
+                <span>8</span>
+                <span>9</span>
+                <span>10</span>
+                <span>11</span>
+                <span>12</span>
+            </div>
+            <div class="product">
+                <p>Men's Premium Sneakers</p>
+                <h1>Reebok Nano X1</h1>
+                <h2>$180</h2>
+                <p class="description">
+                    Elevate your style with the Reebok Nano X1, designed for comfort, durability, and sleek aesthetics.
+                </p>
+                <div class="buttons">
+                    <button class="add">Add To Cart</button>
+                    <button class="like">
+                        <span>&hearts; Like</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="container">
+            <div class="img-container">
+                <div class="img-card">
+                    <div class="front pic4"></div>
+                    <div class="back">
+                        <p>Crafted with premium leather for durability and breathability.</p>
+                    </div>
+                    <div class="images-and-sizes">
+                        <img src="image2/pic-4.webp" alt="Shoe Image">
+                    </div>
+                </div>
+            </div>
+            <div class="slideshow-buttons">
+                <span></span>
+                <span class="focus"></span>
+                <span></span>
+                <span></span>
+            </div>
+            <p class="pick">Choose Size</p>
+            <div class="sizes">
+                <span>5</span>
+                <span>6</span>
+                <span>7</span>
+                <span>8</span>
+                <span>9</span>
+                <span>10</span>
+                <span>11</span>
+                <span>12</span>
+            </div>
+            <div class="product">
+                <p>Men's Premium Sneakers</p>
+                <h1>New Balance 990v5</h1>
+                <h2>$180</h2>
+                <p class="description">
+                    Elevate your style with the New Balance 990v5, designed for comfort, durability, and sleek aesthetics.
+                </p>
+                <div class="buttons">
+                    <button class="add">Add To Cart</button>
+                    <button class="like">
+                        <span>&hearts; Like</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    
+        <div class="container">
+            <div class="img-container">
+                <div class="img-card">
+                    <div class="front pic5"></div>
+                    <div class="back">
+                        <p>Engineered with lightweight materials for all-day comfort and stability.</p>
+                    </div>
+                    <div class="images-and-sizes">
+                        <img src="image2/pic-5.jpg" alt="Shoe Image">
+                    </div>
+                </div>
+            </div>
+            <div class="slideshow-buttons">
+                <span></span>
+                <span class="focus"></span>
+                <span></span>
+                <span></span>
+            </div>
+            <p class="pick">Choose Size</p>
+            <div class="sizes">
+                <span>5</span>
+                <span>6</span>
+                <span>7</span>
+                <span>8</span>
+                <span>9</span>
+                <span>10</span>
+                <span>11</span>
+                <span>12</span>
+            </div>
+            <div class="product">
+                <p>Women's Casual Sneakers</p>
+                <h1>Adidas NMD_R1</h1>
+                <h2>$150</h2>
+                <p class="description">
+                    The Adidas NMD_R1 is the perfect fusion of style and comfort, designed to complement your everyday look.
+                </p>
+                <div class="buttons">
+                    <button class="add">Add To Cart</button>
+                    <button class="like">
+                        <span>&hearts; Like</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    
+        <div class="container">
+            <div class="img-container">
+                <div class="img-card">
+                    <div class="front pic6"></div>
+                    <div class="back">
+                        <p>Versatile design for both outdoor and urban adventures.</p>
+                    </div>
+                    <div class="images-and-sizes">
+                        <img src="image2/pic-6.webp" alt="Shoe Image">
+                    </div>
+                </div>
+            </div>
+            <div class="slideshow-buttons">
+                <span></span>
+                <span class="focus"></span>
+                <span></span>
+                <span></span>
+            </div>
+            <p class="pick">Choose Size</p>
+            <div class="sizes">
+                <span>5</span>
+                <span>6</span>
+                <span>7</span>
+                <span>8</span>
+                <span>9</span>
+                <span>10</span>
+                <span>11</span>
+                <span>12</span>
+            </div>
+            <div class="product">
+                <p>Unisex Outdoor Sneakers</p>
+                <h1>Nike Air Zoom Terra Kiger</h1>
+                <h2>$160</h2>
+                <p class="description">
+                    Conquer the trails with the Nike Air Zoom Terra Kiger, designed for ultimate grip and support on rugged terrain.
+                </p>
+                <div class="buttons">
+                    <button class="add">Add To Cart</button>
+                    <button class="like">
+                        <span>&hearts; Like</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="img-container">
+                <div class="img-card">
+                    <div class="front pic7"></div>
+                    <div class="back">
+                        <p>Experience luxury and performance in every step.</p>
+                    </div>
+                    <div class="images-and-sizes">
+                        <img src="image2/pic-7.jpg"
+                            alt="Shoe Image">
+                    </div>
+                </div>
+            </div>
+            <div class="slideshow-buttons">
+                <span></span>
+                <span class="focus"></span>
+                <span></span>
+                <span></span>
+            </div>
+            <p class="pick">Select Your Size</p>
+            <div class="sizes">
+                <span>5</span>
+                <span>6</span>
+                <span>7</span>
+                <span>8</span>
+                <span>9</span>
+                <span>10</span>
+                <span>11</span>
+                <span>12</span>
+            </div>
+            <div class="product">
+                <p>Luxury Lifestyle Sneakers</p>
+                <h1>Gucci Ace Sneakers</h1>
+                <h2>$780</h2>
+                <p class="description">
+                    The Gucci Ace Sneakers are crafted with a mix of luxurious leather and iconic brand details. A perfect balance of style and comfort for any occasion.
+                </p>
+                <div class="buttons">
+                    <button class="add">Add to Cart</button>
+                    <button class="like">
+                        <span>&hearts; Like</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="img-container">
+                <div class="img-card">
+                    <div class="front pic8"></div>
+                    <div class="back">
+                        <p>Engineered for the ultimate comfort on every run.</p>
+                    </div>
+                    <div class="images-and-sizes">
+                        <img src="image2/pic-8.webp"
+                            alt="Shoe Image">
+                    </div>
+                </div>
+            </div>
+            <div class="slideshow-buttons">
+                <span></span>
+                <span class="focus"></span>
+                <span></span>
+                <span></span>
+            </div>
+            <p class="pick">Select Your Size</p>
+            <div class="sizes">
+                <span>5</span>
+                <span>6</span>
+                <span>7</span>
+                <span>8</span>
+                <span>9</span>
+                <span>10</span>
+                <span>11</span>
+                <span>12</span>
+            </div>
+            <div class="product">
+                <p>Performance Running Shoes</p>
+                <h1>Brooks Ghost 15</h1>
+                <h2>$130</h2>
+                <p class="description">
+                    The Brooks Ghost 15 features soft cushioning and smooth transitions, making it perfect for long runs and daily workouts. Enjoy a soft, responsive ride with every stride.
+                </p>
+                <div class="buttons">
+                    <button class="add">Add to Cart</button>
+                    <button class="like">
+                        <span>&hearts; Like</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="img-container">
+                <div class="img-card">
+                    <div class="front pic9"></div>
+                    <div class="back">
+                        <p>Classic style meets everyday comfort.</p>
+                    </div>
+                    <div class="images-and-sizes">
+                        <img src="image2/pic-9.webp"
+                            alt="Shoe Image">
+                    </div>
+                </div>
+            </div>
+            <div class="slideshow-buttons">
+                <span></span>
+                <span class="focus"></span>
+                <span></span>
+                <span></span>
+            </div>
+            <p class="pick">Select Your Size</p>
+            <div class="sizes">
+                <span>5</span>
+                <span>6</span>
+                <span>7</span>
+                <span>8</span>
+                <span>9</span>
+                <span>10</span>
+                <span>11</span>
+                <span>12</span>
+            </div>
+            <div class="product">
+                <p>Casual Sneakers</p>
+                <h1>Vans Old Skool</h1>
+                <h2>$60</h2>
+                <p class="description">
+                    The Vans Old Skool sneakers are iconic and timeless, offering durability and everyday comfort. With a stylish look and durable build, they are perfect for any casual outing.
+                </p>
+                <div class="buttons">
+                    <button class="add">Add to Cart</button>
+                    <button class="like">
+                        <span>&hearts; Like</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="img-container">
+                <div class="img-card">
+                    <div class="front pic10"></div>
+                    <div class="back">
+                        <p>Step into style with precision and comfort.</p>
+                    </div>
+                    <div class="images-and-sizes">
+                        <img src="image2/pic-10.webp"
+                            alt="Shoe Image">
+                    </div>
+                </div>
+            </div>
+            <div class="slideshow-buttons">
+                <span></span>
+                <span class="focus"></span>
+                <span></span>
+                <span></span>
+            </div>
+            <p class="pick">Select Your Size</p>
+            <div class="sizes">
+                <span>5</span>
+                <span>6</span>
+                <span>7</span>
+                <span>8</span>
+                <span>9</span>
+                <span>10</span>
+                <span>11</span>
+                <span>12</span>
+            </div>
+            <div class="product">
+                <p>Casual Sneakers</p>
+                <h1>Puma Suede Classic</h1>
+                <h2>$75</h2>
+                <p class="description">
+                    The Puma Suede Classic is the perfect blend of style and comfort. Ideal for everyday wear with a durable suede finish and iconic design.
+                </p>
+                <div class="buttons">
+                    <button class="add">Add to Cart</button>
+                    <button class="like">
+                        <span>&hearts; Like</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="img-container">
+                <div class="img-card">
+                    <div class="front pic11"></div>
+                    <div class="back">
+                        <p>Engineered for peak performance.</p>
+                    </div>
+                    <div class="images-and-sizes">
+                        <img src="image2/pic-11.webp"
+                            alt="Shoe Image">
+                    </div>
+                </div>
+            </div>
+            <div class="slideshow-buttons">
+                <span></span>
+                <span class="focus"></span>
+                <span></span>
+                <span></span>
+            </div>
+            <p class="pick">Select Your Size</p>
+            <div class="sizes">
+                <span>5</span>
+                <span>6</span>
+                <span>7</span>
+                <span>8</span>
+                <span>9</span>
+                <span>10</span>
+                <span>11</span>
+                <span>12</span>
+            </div>
+            <div class="product">
+                <p>Training Shoes</p>
+                <h1>Nike Metcon 7</h1>
+                <h2>$130</h2>
+                <p class="description">
+                    The Nike Metcon 7 provides stability and support for high-intensity training. Features a durable rubber sole for better grip during lifts and jumps.
+                </p>
+                <div class="buttons">
+                    <button class="add">Add to Cart</button>
+                    <button class="like">
+                        <span>&hearts; Like</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="img-container">
+                <div class="img-card">
+                    <div class="front pic12"></div>
+                    <div class="back">
+                        <p>Iconic style that never goes out of fashion.</p>
+                    </div>
+                    <div class="images-and-sizes">
+                        <img src="image2/pic-12.jpg"
+                            alt="Shoe Image">
+                    </div>
+                </div>
+            </div>
+            <div class="slideshow-buttons">
+                <span></span>
+                <span class="focus"></span>
+                <span></span>
+                <span></span>
+            </div>
+            <p class="pick">Select Your Size</p>
+            <div class="sizes">
+                <span>5</span>
+                <span>6</span>
+                <span>7</span>
+                <span>8</span>
+                <span>9</span>
+                <span>10</span>
+                <span>11</span>
+                <span>12</span>
+            </div>
+            <div class="product">
+                <p>Classic Sneakers</p>
+                <h1>Converse Chuck Taylor</h1>
+                <h2>$60</h2>
+                <p class="description">
+                    The Converse Chuck Taylor is a timeless classic that combines durability and comfort. Its iconic design and versatility make it suitable for any occasion.
+                </p>
+                <div class="buttons">
+                    <button class="add">Add to Cart</button>
+                    <button class="like">
+                        <span>&hearts; Like</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="img-container">
+                <div class="img-card">
+                    <div class="front pic13"></div>
+                    <div class="back">
+                        <p>Precision-engineered for an agile ride.</p>
+                    </div>
+                    <div class="images-and-sizes">
+                        <img src="image2/pic-13.webp"
+                            alt="Shoe Image">
+                    </div>
+                </div>
+            </div>
+            <div class="slideshow-buttons">
+                <span></span>
+                <span class="focus"></span>
+                <span></span>
+                <span></span>
+            </div>
+            <p class="pick">Select Your Size</p>
+            <div class="sizes">
+                <span>5</span>
+                <span>6</span>
+                <span>7</span>
+                <span>8</span>
+                <span>9</span>
+                <span>10</span>
+                <span>11</span>
+                <span>12</span>
+            </div>
+            <div class="product">
+                <p>Speed Shoes</p>
+                <h1>Under Armour SpeedForm</h1>
+                <h2>$110</h2>
+                <p class="description">
+                    The Under Armour SpeedForm provides responsive cushioning and a lightweight feel, perfect for sprinting and competitive athletes.
+                </p>
+                <div class="buttons">
+                    <button class="add">Add to Cart</button>
+                    <button class="like">
+                        <span>&hearts; Like</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="img-container">
+                <div class="img-card">
+                    <div class="front pic14"></div>
+                    <div class="back">
+                        <p>Fashion meets functionality.</p>
+                    </div>
+                    <div class="images-and-sizes">
+                        <img src="image2/pic-14.webp"
+                            alt="Shoe Image">
+                    </div>
+                </div>
+            </div>
+            <div class="slideshow-buttons">
+                <span></span>
+                <span class="focus"></span>
+                <span></span>
+                <span></span>
+            </div>
+            <p class="pick">Select Your Size</p>
+            <div class="sizes">
+                <span>5</span>
+                <span>6</span>
+                <span>7</span>
+                <span>8</span>
+                <span>9</span>
+                <span>10</span>
+                <span>11</span>
+                <span>12</span>
+            </div>
+            <div class="product">
+                <p>Street Sneakers</p>
+                <h1>Balenciaga Triple S</h1>
+                <h2>$925</h2>
+                <p class="description">
+                    The Balenciaga Triple S features an oversized, chunky design that adds style and comfort. Designed for urban explorers with an eye for luxury.
+                </p>
+                <div class="buttons">
+                    <button class="add">Add to Cart</button>
+                    <button class="like">
+                        <span>&hearts; Like</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="img-container">
+                <div class="img-card">
+                    <div class="front pic15"></div>
+                    <div class="back">
+                        <p>Built for adventure and comfort.</p>
+                    </div>
+                    <div class="images-and-sizes">
+                        <img src="image2/pic-15.webp"
+                            alt="Shoe Image">
+                    </div>
+                </div>
+            </div>
+            <div class="slideshow-buttons">
+                <span></span>
+                <span class="focus"></span>
+                <span></span>
+                <span></span>
+            </div>
+            <p class="pick">Select Your Size</p>
+            <div class="sizes">
+                <span>5</span>
+                <span>6</span>
+                <span>7</span>
+                <span>8</span>
+                <span>9</span>
+                <span>10</span>
+                <span>11</span>
+                <span>12</span>
+            </div>
+            <div class="product">
+                <p>Outdoor Sneakers</p>
+                <h1>Columbia Newton Ridge Plus</h1>
+                <h2>$120</h2>
+                <p class="description">
+                    The Columbia Newton Ridge Plus is the ultimate outdoor companion, designed for all-terrain stability and comfort during hikes and walks.
+                </p>
+                <div class="buttons">
+                    <button class="add">Add to Cart</button>
+                    <button class="like">
+                        <span>&hearts; Like</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="img-container">
+                <div class="img-card">
+                    <div class="front pic16"></div>
+                    <div class="back">
+                        <p>Unrivaled comfort for all-day wear.</p>
+                    </div>
+                    <div class="images-and-sizes">
+                        <img src="image2/pic-16.webp"
+                            alt="Shoe Image">
+                    </div>
+                </div>
+            </div>
+            <div class="slideshow-buttons">
+                <span></span>
+                <span class="focus"></span>
+                <span></span>
+                <span></span>
+            </div>
+            <p class="pick">Select Your Size</p>
+            <div class="sizes">
+                <span>5</span>
+                <span>6</span>
+                <span>7</span>
+                <span>8</span>
+                <span>9</span>
+                <span>10</span>
+                <span>11</span>
+                <span>12</span>
+            </div>
+            <div class="product">
+                <p>Comfort Sneakers</p>
+                <h1>Brooks Glycerin 19</h1>
+                <h2>$150</h2>
+                <p class="description">
+                    The Brooks Glycerin 19 is built for ultimate comfort. Its soft cushioning and smooth ride are perfect for long-distance runners.
+                </p>
+                <div class="buttons">
+                    <button class="add">Add to Cart</button>
+                    <button class="like">
+                        <span>&hearts; Like</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="img-container">
+                <div class="img-card">
+                    <div class="front pic17"></div>
+                    <div class="back">
+                        <p>For the adventurer in you.</p>
+                    </div>
+                    <div class="images-and-sizes">
+                        <img src="image2/pic-17.webp"
+                            alt="Shoe Image">
+                    </div>
+                </div>
+            </div>
+            <div class="slideshow-buttons">
+                <span></span>
+                <span class="focus"></span>
+                <span></span>
+                <span></span>
+            </div>
+            <p class="pick">Select Your Size</p>
+            <div class="sizes">
+                <span>5</span>
+                <span>6</span>
+                <span>7</span>
+                <span>8</span>
+                <span>9</span>
+                <span>10</span>
+                <span>11</span>
+                <span>12</span>
+            </div>
+            <div class="product">
+                <p>Trail Running Shoes</p>
+                <h1>Salomon Speedcross 5</h1>
+                <h2>$130</h2>
+                <p class="description">
+                    The Salomon Speedcross 5 offers the perfect blend of aggressive grip and comfort for trail running. Features a quick-lacing system and durable design.
+                </p>
+                <div class="buttons">
+                    <button class="add">Add to Cart</button>
+                    <button class="like">
+                        <span>&hearts; Like</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="img-container">
+                <div class="img-card">
+                    <div class="front pic18"></div>
+                    <div class="back">
+                        <p>Performance shoes for athletes.</p>
+                    </div>
+                    <div class="images-and-sizes">
+                        <img src="image2/pic-18.webp"
+                            alt="Shoe Image">
+                    </div>
+                </div>
+            </div>
+            <div class="slideshow-buttons">
+                <span></span>
+                <span class="focus"></span>
+                <span></span>
+                <span></span>
+            </div>
+            <p class="pick">Select Your Size</p>
+            <div class="sizes">
+                <span>5</span>
+                <span>6</span>
+                <span>7</span>
+                <span>8</span>
+                <span>9</span>
+                <span>10</span>
+                <span>11</span>
+                <span>12</span>
+            </div>
+            <div class="product">
+                <p>Training Shoes</p>
+                <h1>Asics Gel-Kayano 28</h1>
+                <h2>$160</h2>
+                <p class="description">
+                    The Asics Gel-Kayano 28 offers superior cushioning and support. Ideal for long-distance runners and athletes seeking stability and comfort.
+                </p>
+                <div class="buttons">
+                    <button class="add">Add to Cart</button>
+                    <button class="like">
+                        <span>&hearts; Like</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="img-container">
+                <div class="img-card">
+                    <div class="front pic19"></div>
+                    <div class="back">
+                        <p>Stylish shoes for everyday adventures.</p>
+                    </div>
+                    <div class="images-and-sizes">
+                        <img src="image2/pic-19.webp"
+                            alt="Shoe Image">
+                    </div>
+                </div>
+            </div>
+            <div class="slideshow-buttons">
+                <span></span>
+                <span class="focus"></span>
+                <span></span>
+                <span></span>
+            </div>
+            <p class="pick">Select Your Size</p>
+            <div class="sizes">
+                <span>5</span>
+                <span>6</span>
+                <span>7</span>
+                <span>8</span>
+                <span>9</span>
+                <span>10</span>
+                <span>11</span>
+                <span>12</span>
+            </div>
+            <div class="product">
+                <p>Street Sneakers</p>
+                <h1>New Balance 574</h1>
+                <h2>$85</h2>
+                <p class="description">
+                    The New Balance 574 blends a classic look with modern comfort. Perfect for daily wear, with a cushioned midsole and timeless design.
+                </p>
+                <div class="buttons">
+                    <button class="add">Add to Cart</button>
+                    <button class="like">
+                        <span>&hearts; Like</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="img-container">
+                <div class="img-card">
+                    <div class="front pic20"></div>
+                    <div class="back">
+                        <p>Strength and agility in every step.</p>
+                    </div>
+                    <div class="images-and-sizes">
+                        <img src="image2/pic-20.jpg"
+                            alt="Shoe Image">
+                    </div>
+                </div>
+            </div>
+            <div class="slideshow-buttons">
+                <span></span>
+                <span class="focus"></span>
+                <span></span>
+                <span></span>
+            </div>
+            <p class="pick">Select Your Size</p>
+            <div class="sizes">
+                <span>5</span>
+                <span>6</span>
+                <span>7</span>
+                <span>8</span>
+                <span>9</span>
+                <span>10</span>
+                <span>11</span>
+                <span>12</span>
+            </div>
+            <div class="product">
+                <p>Performance Sneakers</p>
+                <h1>Reebok Legacy Lifter II</h1>
+                <h2>$190</h2>
+                <p class="description">
+                    The Reebok Legacy Lifter II is designed for weightlifting, offering maximum stability and power with a solid sole and strap closure.
+                </p>
+                <div class="buttons">
+                    <button class="add">Add to Cart</button>
+                    <button class="like">
+                        <span>&hearts; Like</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+
+let input = document.querySelector("input"); 
+let cards = document.querySelectorAll(".container");
+
+input.addEventListener("input", () => {
+    let searchBarValue = input.value.toLowerCase();
+
+    cards.forEach((card) => {
+        let cardContent = card.querySelector("h1").textContent.toLowerCase(); // Get the text inside the h1 tag
+        if (cardContent.includes(searchBarValue)) {
+            card.classList.add("show");
+            card.classList.remove("hide");
+        } else {
+            card.classList.add("hide");
+            card.classList.remove("show");
+        }
+    });
+});
+
+
+    </script>
+
+</body>
+
+</html>
